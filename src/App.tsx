@@ -1,7 +1,4 @@
-import React from 'react';
 import {File, FileTable} from './components';
-
-import './App.css';
 
 const files: File[] = [
   { name: 'smss.exe', device: 'Mario', path: '\\Device\\HarddiskVolume2\\Windows\\System32\\smss.exe', status: 'scheduled' },
@@ -13,8 +10,16 @@ const files: File[] = [
 ];
 
 function App() {
-  const handleOnDownload = () => {
+  const handleOnDownload = (selectedFiles: File[]) => {
+    if (!selectedFiles.length) return;
 
+    let alertMessage = 'Downloading these files:\n\n'
+
+    selectedFiles.forEach((file) => {
+      alertMessage += `* ${file.path} + ${file.device}\n`
+    });
+
+    window.alert(alertMessage);
   }
 
   return (
