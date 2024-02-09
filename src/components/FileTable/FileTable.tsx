@@ -14,7 +14,7 @@ export interface File {
 
 interface DataTableDownloadProps {
   files: File[];
-  onDownload: (selectedFiles: File[]) => void;
+  onDownload?: (selectedFiles: File[]) => void;
 }
 
 enum SelectAllState {

@@ -16,16 +16,18 @@
 }
 
 .fileTable-status {
-    text-align: end;
     text-transform: capitalize;
+    position: relative;
 }
 
 .fileTable-status.available::before {
     background-color: green;
-    border-radius: 7.5px;
+    border-radius: 8px;
     content: '';
     display: inline-block;
     height: 12px;
-    margin-right: 1rem;
+    left: 8px;
+    position: absolute;
+    top: 26px;
     width: 12px;
 }
