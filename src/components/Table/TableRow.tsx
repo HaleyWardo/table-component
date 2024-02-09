@@ -1,7 +1,10 @@
-import './TableRow.css';
+import "./TableRow.css";
 
-interface TableRowProps extends React.ComponentPropsWithoutRef<'tr'> {
-    children?: React.ReactNode;
+interface TableRowProps extends React.ComponentPropsWithoutRef<"tr"> {
+  children?: React.ReactNode;
 }
 
-export const TableRow: React.FC<TableRowProps> = ({ children, ...restProps }) => <tr {...restProps}>{children}</tr>;
+export const TableRow: React.FC<TableRowProps> = ({
+  children,
+  ...restProps
+}) => <tr {...restProps}>{children}</tr>;

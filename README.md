@@ -36,12 +36,14 @@ npm test
 - Precise/exact HTML formatting/styling to match the mockup is not required however rows should change colour when selected and on hover.
 
 ## Time Spent
-- Friday
-    - 11:00 AM - 
 
-## Improvements 
+- Friday
+  - 11:00 AM -
+
+## Improvements
+
 - Having each available row be clickable
-    - Clicking on the row will check/uncheck the checkbox for that row
+  - Clicking on the row will check/uncheck the checkbox for that row
 - Use Tailwind or Styled components
-    - Current way isn't ideal. Right now I am styling by HTML tags and even though we have separate stylesheet files, they still get combined into one so we can override styles from any sheet.
+  - Current way isn't ideal. Right now I am styling by HTML tags and even though we have separate stylesheet files, they still get combined into one so we can override styles from any sheet.
 - Write tests for each component

@@ -1,15 +1,22 @@
-import React from 'react';
-import { Button } from '../Button';
-import { Checkbox } from '../Checkbox';
-import { Download } from '../Icons';
-import { Table, TableBody, TableDataCell, TableHead, TableHeader, TableRow } from '../Table';
-import './FileTable.css';
+import React from "react";
+import { Button } from "../Button";
+import { Checkbox } from "../Checkbox";
+import { Download } from "../Icons";
+import {
+  Table,
+  TableBody,
+  TableDataCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "../Table";
+import "./FileTable.css";
 
 export interface File {
   name: string;
   device: string;
   path: string;
-  status: 'available' | 'scheduled';
+  status: "available" | "scheduled";
 }
 
 interface DataTableDownloadProps {
@@ -18,21 +25,27 @@ interface DataTableDownloadProps {
 }
 
 enum SelectAllState {
-  'CHECKED' = 'checked',
-  'UNCHECKED' = 'unchecked',
-  'INDETERMINATE' = 'indeterminate',
+  "CHECKED" = "checked",
+  "UNCHECKED" = "unchecked",
+  "INDETERMINATE" = "indeterminate",
 }
 
-export const FileTable: React.FC<DataTableDownloadProps> = ({ files, onDownload }) => {
-  const [selectAllState, setSelectAllState] = React.useState<SelectAllState>(SelectAllState.UNCHECKED);
+export const FileTable: React.FC<DataTableDownloadProps> = ({
+  files,
+  onDownload,
+}) => {
+  const [selectAllState, setSelectAllState] = React.useState<SelectAllState>(
+    SelectAllState.UNCHECKED,
+  );
   const [selectedFiles, setSelectedFiles] = React.useState<File[]>([]);
 
   React.useEffect(() => {
     const availableFiles = files?.filter(
-      (option) => option.status === 'available'
+      (option) => option.status === "available",
     );
 
-    const isIndeterminate = selectedFiles.length > 0 && selectedFiles.length < availableFiles.length;
+    const isIndeterminate =
+      selectedFiles.length > 0 && selectedFiles.length < availableFiles.length;
 
     if (isIndeterminate) {
       setSelectAllState(SelectAllState.INDETERMINATE);
@@ -46,8 +59,10 @@ export const FileTable: React.FC<DataTableDownloadProps> = ({ files, onDownload 
     }
   }, [files, selectedFiles.length]);
 
-  const handleOnIndeterminateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const availableFiles = files.filter((file) => file.status === 'available');
+  const handleOnIndeterminateChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const availableFiles = files.filter((file) => file.status === "available");
 
     // If it is checked, check all options
     if (event.target.checked && selectedFiles.length >= 0) {
@@ -55,17 +70,23 @@ export const FileTable: React.FC<DataTableDownloadProps> = ({ files, onDownload 
     }
 
     // If it is unchecked, uncheck all options
-    if (!event.target.checked && selectedFiles.length === availableFiles.length) {
+    if (
+      !event.target.checked &&
+      selectedFiles.length === availableFiles.length
+    ) {
       setSelectedFiles([]);
     }
-  }
+  };
 
-  const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>, file: File) => {
+  const handleOnChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    file: File,
+  ) => {
     setSelectedFiles((previousFiles: File[]) => {
       if (event.target.checked) {
-        return [...previousFiles, file]
+        return [...previousFiles, file];
       } else {
-        return previousFiles?.filter((prevFile) => prevFile !== file)
+        return previousFiles?.filter((prevFile) => prevFile !== file);
       }
     });
   };
@@ -76,12 +97,16 @@ export const FileTable: React.FC<DataTableDownloadProps> = ({ files, onDownload 
         <Checkbox
           checked={selectAllState === SelectAllState.CHECKED}
           isIndeterminate={selectAllState === SelectAllState.INDETERMINATE}
-          label={selectedFiles.length ? `Selected ${selectedFiles.length}` : 'None Selected'}
+          label={
+            selectedFiles.length
+              ? `Selected ${selectedFiles.length}`
+              : "None Selected"
+          }
           onChange={handleOnIndeterminateChange}
         />
-        <Button 
+        <Button
           disabled={!selectedFiles.length}
-          icon={Download} 
+          icon={Download}
           onClick={() => onDownload?.(selectedFiles)}
         >
           Download Selected
@@ -101,30 +126,32 @@ export const FileTable: React.FC<DataTableDownloadProps> = ({ files, onDownload 
         </TableHead>
 
         <TableBody>
-          {!!files.length ? files.map((file) => (
-            <TableRow key={file.name}>
-              <TableDataCell>
-                <Checkbox
-                  aria-label={`Select ${file.name}`}
-                  checked={selectedFiles.includes(file)}
-                  disabled={file.status !== 'available'}
-                  onChange={(event) => handleOnChange(event, file)}
-                />
-              </TableDataCell>
-              <TableDataCell>{file.name}</TableDataCell>
-              <TableDataCell>{file.device}</TableDataCell>
-              <TableDataCell>{file.path}</TableDataCell>
-              <TableDataCell className={`fileTable-status ${file.status}`}>
-                {file.status}
-              </TableDataCell>
-            </TableRow>
-          )) :
+          {!!files.length ? (
+            files.map((file) => (
+              <TableRow key={file.name}>
+                <TableDataCell>
+                  <Checkbox
+                    aria-label={`Select ${file.name}`}
+                    checked={selectedFiles.includes(file)}
+                    disabled={file.status !== "available"}
+                    onChange={(event) => handleOnChange(event, file)}
+                  />
+                </TableDataCell>
+                <TableDataCell>{file.name}</TableDataCell>
+                <TableDataCell>{file.device}</TableDataCell>
+                <TableDataCell>{file.path}</TableDataCell>
+                <TableDataCell className={`fileTable-status ${file.status}`}>
+                  {file.status}
+                </TableDataCell>
+              </TableRow>
+            ))
+          ) : (
             <TableRow>
               <TableDataCell colSpan={5}>No files found</TableDataCell>
             </TableRow>
-          }
+          )}
         </TableBody>
       </Table>
     </div>
   );
-}
+};

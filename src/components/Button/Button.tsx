@@ -1,6 +1,6 @@
-import './Button.css';
+import "./Button.css";
 
-interface ButtonProps extends React.ComponentPropsWithoutRef<'button'> {
+interface ButtonProps extends React.ComponentPropsWithoutRef<"button"> {
   children?: React.ReactNode;
   icon?: React.ComponentType<React.SVGProps<SVGSVGElement>>;
 }
