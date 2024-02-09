@@ -1,0 +1,21 @@
+.checkbox-container { 
+    align-items: center;
+    display: flex;
+    gap: 1rem;
+}
+
+.checkbox-container label { 
+    color: #575555;
+    font-size: 20px;
+    min-width: 132px;
+}
+
+.checkbox-container input[type=checkbox] {
+    cursor: pointer;
+    height: 24px;
+    width: 24px;
+}
+
+.checkbox-container input[type=checkbox]:disabled {
+    cursor: not-allowed;
+}

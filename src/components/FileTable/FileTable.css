@@ -1,0 +1,31 @@
+.fileTable-container {
+    display: flex;
+    flex-direction: column;
+    height: fit-content;
+    margin: 3rem auto;
+    width: fit-content;
+}
+
+.fileTable-header {
+    border-left: 1px solid lightgray;
+    border-right: 1px solid lightgray;
+    border-top: 1px solid lightgray;
+    display: flex;
+    gap: 3rem;
+    padding: 1rem;
+}
+
+.fileTable-status {
+    text-align: end;
+    text-transform: capitalize;
+}
+
+.fileTable-status.available::before {
+    background-color: green;
+    border-radius: 7.5px;
+    content: '';
+    display: inline-block;
+    height: 12px;
+    margin-right: 1rem;
+    width: 12px;
+}

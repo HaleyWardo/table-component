@@ -1,3 +1,5 @@
+import './Table.css';
+
 interface TableProps extends React.ComponentPropsWithoutRef<'table'> {
     children: React.ReactNode;
 }

@@ -1,8 +1,10 @@
-interface TableCellProps extends React.ComponentPropsWithoutRef<'td'> {
+import './TableDataCell.css';
+
+interface TableDataCellProps extends React.ComponentPropsWithoutRef<'td'> {
   children?: React.ReactNode;
 }
 
-export const TableDataCell: React.FC<TableCellProps> = ({ children, ...restProps }) => (
+export const TableDataCell: React.FC<TableDataCellProps> = ({ children, ...restProps }) => (
     <td {...restProps}>
       {children}
     </td>

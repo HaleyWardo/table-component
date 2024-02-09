@@ -1,3 +1,5 @@
+import './TableHead.css';
+
 interface TableHeaderProps extends React.ComponentPropsWithoutRef<'th'> {
   children?: React.ReactNode;
 }

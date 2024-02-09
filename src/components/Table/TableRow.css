@@ -1,0 +1,7 @@
+tr {
+    border: 1px solid lightgray;
+}
+
+tr:last-of-type {
+    border-radius: 100%;
+}
