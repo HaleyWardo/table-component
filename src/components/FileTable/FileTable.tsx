@@ -12,6 +12,17 @@ import {
 } from "../Table";
 import "./FileTable.css";
 
+enum Status {
+  "AVAILABLE" = "available",
+  "SCHEDULED" = "scheduled",
+}
+
+enum SelectAllState {
+  "CHECKED" = "checked",
+  "UNCHECKED" = "unchecked",
+  "INDETERMINATE" = "indeterminate",
+}
+
 export interface File {
   name: string;
   device: string;
@@ -22,12 +33,6 @@ export interface File {
 interface DataTableDownloadProps {
   files: File[];
   onDownload?: (selectedFiles: File[]) => void;
-}
-
-enum SelectAllState {
-  "CHECKED" = "checked",
-  "UNCHECKED" = "unchecked",
-  "INDETERMINATE" = "indeterminate",
 }
 
 export const FileTable: React.FC<DataTableDownloadProps> = ({
@@ -41,7 +46,7 @@ export const FileTable: React.FC<DataTableDownloadProps> = ({
 
   React.useEffect(() => {
     const availableFiles = files?.filter(
-      (option) => option.status === "available",
+      (option) => option.status === Status.AVAILABLE,
     );
 
     const isIndeterminate =
@@ -62,14 +67,16 @@ export const FileTable: React.FC<DataTableDownloadProps> = ({
   const handleOnIndeterminateChange = (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
-    const availableFiles = files.filter((file) => file.status === "available");
+    const availableFiles = files.filter(
+      (file) => file.status === Status.AVAILABLE,
+    );
 
-    // If it is checked, check all options
+    // If select all is checked, check all options
     if (event.target.checked && selectedFiles.length >= 0) {
       setSelectedFiles(availableFiles);
     }
 
-    // If it is unchecked, uncheck all options
+    // If select all is unchecked, uncheck all options
     if (
       !event.target.checked &&
       selectedFiles.length === availableFiles.length
@@ -78,18 +85,14 @@ export const FileTable: React.FC<DataTableDownloadProps> = ({
     }
   };
 
-  const handleOnChange = (
-    event: React.ChangeEvent<HTMLInputElement>,
-    file: File,
-  ) => {
+  const handleToggleChecked = (checked: boolean, file: File) =>
     setSelectedFiles((previousFiles: File[]) => {
-      if (event.target.checked) {
+      if (checked) {
         return [...previousFiles, file];
       } else {
         return previousFiles?.filter((prevFile) => prevFile !== file);
       }
     });
-  };
 
   return (
     <div className="fileTable-container">
@@ -127,24 +130,40 @@ export const FileTable: React.FC<DataTableDownloadProps> = ({
 
         <TableBody>
           {!!files.length ? (
-            files.map((file) => (
-              <TableRow key={file.name}>
-                <TableDataCell>
-                  <Checkbox
-                    aria-label={`Select ${file.name}`}
-                    checked={selectedFiles.includes(file)}
-                    disabled={file.status !== "available"}
-                    onChange={(event) => handleOnChange(event, file)}
-                  />
-                </TableDataCell>
-                <TableDataCell>{file.name}</TableDataCell>
-                <TableDataCell>{file.device}</TableDataCell>
-                <TableDataCell>{file.path}</TableDataCell>
-                <TableDataCell className={`fileTable-status ${file.status}`}>
-                  {file.status}
-                </TableDataCell>
-              </TableRow>
-            ))
+            files.map((file) => {
+              const checked = selectedFiles.includes(file);
+              const isAvailable = file.status === Status.AVAILABLE;
+
+              return (
+                <TableRow
+                  key={file.name}
+                  onClick={
+                    isAvailable
+                      ? () => handleToggleChecked(!checked, file)
+                      : undefined
+                  }
+                >
+                  <TableDataCell>
+                    <Checkbox
+                      aria-label={`Select ${file.name}`}
+                      checked={checked}
+                      disabled={!isAvailable}
+                      onChange={(event) =>
+                        handleToggleChecked(event.target.checked, file)
+                      }
+                      // Stop row click event from being called
+                      onClick={(event) => event.stopPropagation()}
+                    />
+                  </TableDataCell>
+                  <TableDataCell>{file.name}</TableDataCell>
+                  <TableDataCell>{file.device}</TableDataCell>
+                  <TableDataCell>{file.path}</TableDataCell>
+                  <TableDataCell className={`fileTable-status ${file.status}`}>
+                    {file.status}
+                  </TableDataCell>
+                </TableRow>
+              );
+            })
           ) : (
             <TableRow>
               <TableDataCell colSpan={5}>No files found</TableDataCell>

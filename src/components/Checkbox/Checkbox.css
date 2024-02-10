@@ -12,8 +12,8 @@
 
 .checkbox-container input[type="checkbox"] {
   cursor: pointer;
-  height: 24px;
-  width: 24px;
+  height: 18px;
+  width: 18px;
 }
 
 .checkbox-container input[type="checkbox"]:disabled {

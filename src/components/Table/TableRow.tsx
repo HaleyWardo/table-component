@@ -6,5 +6,14 @@ interface TableRowProps extends React.ComponentPropsWithoutRef<"tr"> {
 
 export const TableRow: React.FC<TableRowProps> = ({
   children,
+  onClick,
   ...restProps
-}) => <tr {...restProps}>{children}</tr>;
+}) => (
+  <tr
+    className={onClick ? "tableRow-interactive" : undefined}
+    onClick={onClick}
+    {...restProps}
+  >
+    {children}
+  </tr>
+);
