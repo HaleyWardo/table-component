@@ -40,10 +40,11 @@ npm test
 - Friday
   - 11:00 AM - 1:00 PM
 - Saturday
-  - 1:30 PM - 3:00PM
+  - 1:30 PM - 3:30PM
 
 ## Improvements
 
+- Address deprecated packages and vulnerabilities logged when installing dependencies
 - Use Tailwind or Styled components
   - Current way isn't ideal. Right now I am styling by HTML tags and even though we have separate stylesheet files, they still get combined into one so we can override styles from any sheet.
   - By using Tailwind or Styled components those styles are only applied to that specific component
