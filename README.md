@@ -38,12 +38,54 @@ npm test
 ## Time Spent
 
 - Friday
-  - 11:00 AM -
+  - 11:00 AM - 1:00 PM
+- Saturday
+  - 1:30 PM - 3:00PM
 
 ## Improvements
 
-- Having each available row be clickable
-  - Clicking on the row will check/uncheck the checkbox for that row
 - Use Tailwind or Styled components
   - Current way isn't ideal. Right now I am styling by HTML tags and even though we have separate stylesheet files, they still get combined into one so we can override styles from any sheet.
-- Write tests for each component
+  - By using Tailwind or Styled components those styles are only applied to that specific component
+- Update Table component to handle dynamic data and render header and cells based on a configuration.
+
+  ```
+  const config = [
+    {
+      header: {
+        label: 'Name',
+      },
+      cell: {
+        content: (file: File) => file.name,
+      },
+    },
+    {
+      header: {
+        label: 'Device',
+      },
+      cell: {
+        content: (file: File) => file.device,
+      },
+    },
+    {
+      header: {
+        label: 'path',
+      },
+      cell: {
+        content: (file: File) => file.path,
+      },
+    },
+    {
+      header: {
+        label: 'Name',
+      },
+      cell: {
+        content: (file: File) => file.status,
+        // can be used to capitalize
+        className: 'status-custom-class',
+      },
+    },
+  ]
+
+  <Table data={files} config={config} />
+  ```

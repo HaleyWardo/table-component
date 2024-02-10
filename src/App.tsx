@@ -46,7 +46,7 @@ function App() {
     let alertMessage = "Downloading these files:\n\n";
 
     selectedFiles.forEach((file) => {
-      alertMessage += `* ${file.path} + ${file.device}\n`;
+      alertMessage += `- ${file.path} + ${file.device}\n\n`;
     });
 
     window.alert(alertMessage);
