@@ -1,3 +1,4 @@
+import { clsx } from "clsx";
 import "./TableRow.css";
 
 interface TableRowProps extends React.ComponentPropsWithoutRef<"tr"> {
@@ -6,11 +7,12 @@ interface TableRowProps extends React.ComponentPropsWithoutRef<"tr"> {
 
 export const TableRow: React.FC<TableRowProps> = ({
   children,
+  className,
   onClick,
   ...restProps
 }) => (
   <tr
-    className={onClick ? "tableRow-interactive" : undefined}
+    className={clsx(className, "tableRow", !!onClick && "tableRow-interactive")}
     onClick={onClick}
     {...restProps}
   >

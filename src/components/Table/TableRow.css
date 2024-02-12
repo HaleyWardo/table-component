@@ -1,9 +1,16 @@
 tr {
   border: 1px solid lightgray;
+  transition: background-color 0.4s ease;
 }
 
-tr:hover {
+tr:has(input[type="checkbox"]:checked) {
+  background-color: #e0dede;
+}
+
+.tableRow:has(input[type="checkbox"]):hover,
+tr:has(input[type="checkbox"]:focus) {
   background-color: #f0f0f0;
+  transition: background-color 0.4s ease;
 }
 
 .tableRow-interactive {
