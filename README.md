@@ -40,11 +40,14 @@ npm test
 - Friday
   - 11:00 AM - 1:00 PM
 - Saturday
-  - 1:30 PM - 3:30PM
+  - 1:30 PM - 3:30 PM
+- Monday
+  - 6:45 AM - 6:50 AM
 
 ## Improvements
 
-- Address deprecated packages and vulnerabilities logged when installing dependencies
+- With using create-react-app, it comes straight out of the box with deprecated and vulnerable dependencies. If I had more time, I'd fix these.
+- Use copy or string file for translations
 - Use Tailwind or Styled components
   - Current way isn't ideal. Right now I am styling by HTML tags and even though we have separate stylesheet files, they still get combined into one so we can override styles from any sheet.
   - By using Tailwind or Styled components those styles are only applied to that specific component
