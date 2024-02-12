@@ -73,7 +73,7 @@ npm test
     },
     {
       header: {
-        label: 'path',
+        label: 'Path',
       },
       cell: {
         content: (file: File) => file.path,
